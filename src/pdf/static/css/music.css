@@ -1,15 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
-* {
-  box-sizing: border-box;
-}
 
 body {
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     0deg,
     rgba(247, 247, 247, 1) 23.8%,
     rgba(252, 221, 221, 1) 92%
-  );
+  ); */
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,14 +17,18 @@ body {
 }
 
 .music-container {
-  background-color: #fff;
+  box-sizing: border-box;
+  position: fixed;
+  background-color: var(--cream);
   border-radius: 15px;
-  box-shadow: 0 20px 20px 0 rgba(252, 169, 169, 0.6);
+  box-shadow: 0 20px 20px 0 rgba(177, 57, 50, 0.2);
   display: flex;
   padding: 20px 30px;
-  position: relative;
-  margin: 100px 0;
+  margin: 50px 0;
   z-index: 10;
+  bottom:0%;
+  left:50%;
+  transform: translate(-50%, 0);
 }
 
 .img-container {
@@ -37,7 +38,7 @@ body {
 
 .img-container::after {
   content: '';
-  background-color: #fff;
+  background-color: var(--cream);
   border-radius: 50%;
   position: absolute;
   bottom: 100%;
@@ -61,7 +62,7 @@ body {
 }
 
 .music-container.play .img-container img {
-  animation-play-state: running;
+  /* animation-play-state: running; */
 }
 
 @keyframes rotate {
@@ -82,9 +83,9 @@ body {
 }
 
 .action-btn {
-  background-color: #fff;
+  background-color: var(--cream);
   border: 0;
-  color: #dfdbdf;
+  color: var(--cheese);
   font-size: 20px;
   cursor: pointer;
   padding: 10px;
@@ -92,7 +93,7 @@ body {
 }
 
 .action-btn.action-btn-big {
-  color: #cdc2d0;
+  color: var(--maple);
   font-size: 30px;
 }
 
@@ -102,12 +103,14 @@ body {
 
 .music-info {
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 15px 15px 0 0;
+  border-radius: 15px 15px 15px 15px;
   position: absolute;
-  top: 0;
-  left: 20px;
-  width: calc(100% - 40px);
-  padding: 10px 10px 10px 150px;
+  /* top: 10%;
+  left: 20px; */
+  left: 0;
+  top: 10%;
+  width: 70%;
+  padding: 20px 20px 20px 150px;
   opacity: 0;
   transform: translateY(0%);
   transition: transform 0.3s ease-in, opacity 0.3s ease-in;
@@ -133,7 +136,7 @@ body {
 }
 
 .progress {
-  background-color: #fe8daa;
+  background-color: var(--maple);
   border-radius: 5px;
   height: 100%;
   width: 0%;
