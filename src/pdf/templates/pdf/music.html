@@ -20,18 +20,43 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="{% static 'css/music.css' %}">
   <script src="{% static 'js/music.js' %}"></script>
+  <script>
+    var GLOBAL_PATH = '{{ STATIC_PATH }}'; 
+ </script>
 </head>
 
 <body>
-  <div id="par">
-    <div id="container">
-      <h1>Eddie</h1>
-      <hr>
-      <button id="start" type="button">play/pause</button>
+  <h1>Eddie</h1>
+
+  <div class="music-container" id="music-container">
+    <div class="music-info">
+      <h4 id="title"></h4>
+      <div class="progress-container" id="progress-container">
+        <div class="progress" id="progress"></div>
+      </div>
+    </div>
+
+    <audio src="{% static 'media/heart.mp3' %}" id="audio"></audio>
+
+    <div class="img-container">
+      <img src="{% static 'img/1.jpg' %}" alt="music-cover" id="cover" />
+    </div>
+    <div class="navigation">
+      <button id="prev" class="action-btn">
+        <i class="fas fa-backward"></i>
+      </button>
+      <button id="play" class="action-btn action-btn-big">
+        <i class="fas fa-play"></i>
+      </button>
+      <button id="next" class="action-btn">
+        <i class="fas fa-forward"></i>
+      </button>
     </div>
   </div>
+
+  <script src="music.js"></script>
 </body>
 </html>
