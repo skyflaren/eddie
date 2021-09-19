@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from .emotion_analysis import EmotionAnalysis
 import ast
 
+processed = EmotionAnalysis([""]);
+
 # Create your views here.
 def index_view(request):
     context = {}
@@ -22,11 +24,26 @@ def upload_view(request):
         res = request.POST.get('text')
         res = ast.literal_eval(res)
         processed = EmotionAnalysis(res)
-        processed.process_pages([1, 2, 3, 4, 5, 6, 7, 8])
-        processed = processed.jsonify(1, 8)
-        response = {"result": processed} 
+        # processed.process_pages([rest])
+        # processed = processed.jsonify(res, res)
+        response = {"result": "200"} 
+
+        return JsonResponse(response);
+
+def page_view(request):
+    if request.method == 'POST':
+        pn = int(request.POST.get('page'))
+        res = request.POST.get('text')
+        res = ast.literal_eval(res)
+        processed = EmotionAnalysis(res)
+        processed.process_pages([pn])
+        mood = processed.jsonify(pn, pn)
+        response = {"result": mood} 
+        print(response);
 
         return JsonResponse(response)
+    
+    
 
     # if request.method == 'POST':
     #     response = {

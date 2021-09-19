@@ -44,9 +44,9 @@ $(document).ready(() => {
         var songIndex = parseInt(Math.round(Math.random()*(songCount[themeIndex]-1)));
 
         audio.src =  GLOBAL_PATH + "static/media/" + themes[songIndex] + "/" + songs[themeIndex][songIndex] + ".mp3";
-        console.log(audio.src);
+        // console.log(audio.src);
         cover.src = GLOBAL_PATH + "static/img/" + imgIndex + ".jpg";
-        console.log(cover.src);
+        // console.log(cover.src);
     }
 
     //Update Song Theme
@@ -120,8 +120,8 @@ $(document).ready(() => {
         if ((currentTime <= 2.5) && (audio.volume != 1.0)) {
             audio.volume = Math.min(audio.volume+0.1, userVolume);
         }
-        console.log(audio.volume);
-        console.log(userVolume);
+        // console.log(audio.volume);
+        // console.log(userVolume);
     }
 
     function volumeUp() {

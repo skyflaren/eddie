@@ -5,13 +5,83 @@
 //         audioElement.play();
 //     });
 // }
+let obs = [];
+
 
 $(document).ready(function() {
+  console.log("asdfsd")
+ 
+  
+
+//   let callback = (entries, observer) => {
+//     entries.forEach(entry => {
+//       // Each entry describes an intersection change for one observed
+//       // target element:
+//       //   entry.boundingClientRect
+//       //   entry.intersectionRatio
+//       //   entry.intersectionRect
+//       //   entry.isIntersecting
+//       //   entry.rootBounds
+//       //   entry.target
+//       //   entry.time
+//       console.log(this +" pog");
+//     });
+//   };
+// 
+//   let observer = new IntersectionObserver(callback, options);
+// 
+//   $("canvas").each(() => {
+//     observer.observe(this);
+//   });
+
+
+//   intersectionCallback(entries) => {
+//     entries.forEach(entry => {
+//       if (entry.isIntersecting) {
+//         let elem = entry.target;
+// 
+//         if (entry.intersectionRatio >= 0.75) {
+//           intersectionCounter++;
+//         }
+//       }
+//     });
+//   }
+
+  // $(canvas).each(() => {
+  //   let options = {
+  //     root: this,
+  //     rootMargin: '0px',
+  //     threshold: 1.0
+  //   }
+
+  //   var observer = new IntersectionObserver(function(entries) {
+  //   // isIntersecting is true when element and viewport are overlapping
+  //   // isIntersecting is false when element and viewport don't overlap
+  //   if(entries[0].isIntersecting === true)
+  //     console.log('Element has just become visible in screen');
+  // }, { threshold: [0] });
+  // })
+
+  
+
+// observer.observe(document.querySelector("#main-container"));
+
+
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.worker.js';
   document.getElementById('file').onchange = function(event) {
     var currPage = 1; // Pages are 1-based, not 0-based
     var numPages = 0;
     var thePDF = null;
+    var x = 0;
+    var loaded = []
+    var allTextSaved
+
+    var token = $('input[name="csrfmiddlewaretoken"]').attr('value')
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('Csrf-Token', token);
+        }
+    });
 
     var file = event.target.files[0];
     var fileReader = new FileReader();
@@ -19,7 +89,7 @@ $(document).ready(function() {
     fileReader.onload = function() {
 
       var typedarray = new Uint8Array(this.result);
-      console.log(typedarray);
+      // console.log(typedarray);
       const loadingTask = pdfjsLib.getDocument(typedarray);
 
       loadingTask.promise.then(pdf => {
@@ -49,13 +119,8 @@ $(document).ready(function() {
 
           let userToken = getText();
           userToken.then(function(result) {
-            console.log(result) // =============== Retrieve data from here ===============
-            var token = $('input[name="csrfmiddlewaretoken"]').attr('value')
-            $.ajaxSetup({
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('Csrf-Token', token);
-                }
-            });
+            // console.log(result) // =============== Retrieve data from here ===============
+            
             $.ajax({
               type: "POST",
               data: {"text": result},
@@ -64,28 +129,50 @@ $(document).ready(function() {
                     'X-CSRFToken': token 
                },
               success: function (response) {
-                // if ("worked" == "true") {
-                //   console.log("pog")
-                // }
-                // else {
-                //   console.log("bog")
-                // }
-                console.log(response)
-                console.log(String($("#url").attr("data-url")));
-                
+                allTextSaved = result;
+                // loadpage(1);
+                // if(numPages >= 2){ loadpage(2); }
+                // if(numPages >= 3){ loadpage(3); }
               },
               error: function (response) {
-                console.log(response)
-                // console.log(response.responseJSON.errors)
+                // console.log(response)
+                console.log(response.responseJSON.errors)
               }
             });
             return false;
+            
           })
 
         pdf.getPage(1).then(morepages);
 
-        function morepages(page){
 
+        function loadpage(num){
+          console.log("WOWZ")
+          $.ajax({
+            type: "POST",
+            data: {"page": String(num), "text": allTextSaved},
+            url: $("#page-url").attr("data-url"),
+            headers: {
+                  'X-CSRFToken': token 
+             },
+            success: function (response) {
+              loaded.push({
+                  key: String(num),
+                  value: "true"
+              });
+              console.log(response)
+            },
+            error: function (response) {
+              console.log(response)
+              // console.log(response.responseJSON.errors)
+            }
+          });
+        }
+
+
+
+        function morepages(page){
+          x = x+1
           // var textContent = page.getTextContent();
           // var allText = textContent.then(function(text){ // return content promise
           //   console.log(text.items.map(function (s) { return s.str; }).join('')); // value page text 
@@ -102,6 +189,8 @@ $(document).ready(function() {
           canvas.height = viewport.height;
           canvas.width = viewport.width;
 
+          // var pageSize = $("canvas").get(0).getBoundingClientRect().height;
+
           // Render PDF page into canvas context
           var renderContext = {
             canvasContext: context,
@@ -109,7 +198,7 @@ $(document).ready(function() {
           };
           var renderTask = page.render(renderContext);
           renderTask.promise.then(function() {
-            console.log('Page rendered');
+            // console.log('Page rendered');
           });
 
           //Add it to the web page
@@ -120,6 +209,46 @@ $(document).ready(function() {
           {
             thePDF.getPage( currPage ).then( morepages );
           }
+
+
+
+          // console.log(document.getElementsByTagName("canvas"))
+          // $("canvas").each(() => {
+          // console.log("wong")
+          canvas.setAttribute("id", String(x));
+          // window.addEventListener("load", (event) => {
+            // console.log("pog")
+            createObserver();
+          // }, false);
+
+          function createObserver() {
+            let observer;
+
+            let options = {
+              root: null,
+              rootMargin: "0px",
+              threshold: "1"
+            };
+
+            observer = new IntersectionObserver((entries, observer) => {
+              entries.forEach((entry) => {
+                
+                if(entry.isIntersecting && loaded[canvas.id] != "true"){
+                  console.log(canvas.id);
+                loadpage(canvas.id);
+                }
+              });
+            }, {threshold: 0.1});
+
+            observer.observe(canvas);
+            // console.log("mog")
+            obs.push(observer)
+          }
+
+
+
+
+
         }
       });
     }
