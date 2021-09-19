@@ -24,6 +24,9 @@ def upload_view(request):
         res = request.POST.get('text')
         res = ast.literal_eval(res)
         processed.set_all_pages(res)
+        #Temporary
+        processed.process_all_pages()
+        processed.plot()
         # processed.process_pages([rest])
         # processed = processed.jsonify(res, res)
         response = {"result": "200"} 

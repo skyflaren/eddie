@@ -21,20 +21,11 @@ $(document).ready(() => {
     var userVolume = 1.0;
     var fade = false;
 
-    // Song titles
-    const songs = [
-        ['night'], // Happy
-        ['mongoose'], // Angry
-        ['city'], // Surprised
-        ['heart'], // Sad
-        ['mysong'] // Fear
-    ];
-
     // Keep track of song
     let songIndex = 0;
 
     const themes = ['happy', 'angry', 'surprised', 'sad', 'fear'];
-    const songCount = [1, 1, 1, 1, 1];
+    const songCount = [3, 2, 2, 4, 3];
     const imgCount = 3;
     
 
@@ -47,7 +38,7 @@ $(document).ready(() => {
         var imgIndex = parseInt(Math.round(Math.random()*(imgCount-1)));
         var songIndex = parseInt(Math.round(Math.random()*(songCount[themeIndex]-1)));
 
-        audio.src =  GLOBAL_PATH + "static/media/" + themes[themeIndex] + "/" + songs[themeIndex][songIndex] + ".mp3";
+        audio.src =  GLOBAL_PATH + "static/media/" + themes[themeIndex] + "/" + songIndex + ".mp3";
         // console.log(audio.src);
         cover.src = GLOBAL_PATH + "static/img/" + imgIndex + ".jpg";
         // console.log(cover.src);

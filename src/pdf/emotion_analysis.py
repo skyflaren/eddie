@@ -59,6 +59,9 @@ class EmotionAnalysis():
         }
         self.songs = []    
 
+    def process_all_pages(self):
+        self.process_pages([x for x in range(1,100)])
+
     def process_pages(self, p_nums): #Takes in page numbers to avoid recalculating the same page
         # Takes pages from saved text
         p_nums = [x for x in p_nums if x < len(self.all_pages)] 
@@ -119,10 +122,10 @@ class EmotionAnalysis():
 
             # For matplotlib charts
             self.d['happy'][pn] = 1.2*np.average(happy[i])
-            self.d['angry'][pn] = 1.2*np.average(angry[i])
-            self.d['surprise'][pn] = 0.8*np.average(surprise[i])
-            self.d['sad'][pn] = np.average(sad[i])
-            self.d['fear'][pn] = 0.5*np.average(fear[i])
+            self.d['angry'][pn] = 1.5*np.average(angry[i])
+            self.d['surprise'][pn] = 0.5*np.average(surprise[i])
+            self.d['sad'][pn] = 0.6*np.average(sad[i])
+            self.d['fear'][pn] = 0.4*np.average(fear[i])
 
             scores = np.array([self.d['happy'][pn], self.d['angry'][pn], self.d['surprise'][pn], self.d['sad'][pn], self.d['fear'][pn]])
 
