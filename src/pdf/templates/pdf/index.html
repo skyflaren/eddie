@@ -19,9 +19,14 @@
 
   <body>
     <div id="wrapper">
-      <div>
+      <div id="min-wrapper">
+        <div id="top-left">
+          <span id="pdf-title">title</span></br>
+          <span id="page-num">1/x</span>
+        </div>
         {% csrf_token %}
         <label class="custom-file-upload" id="upload">
+          click to upload file
           <input type="file" id="file" style="display:none">
           <i class="fas fa-file-upload fa-3x"></i>
         </label>

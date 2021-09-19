@@ -69,6 +69,7 @@ $(document).ready(function() {
 
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.worker.js';
   document.getElementById('file').onchange = function(event) {
+    
     var currPage = 1; // Pages are 1-based, not 0-based
     var numPages = 0;
     var thePDF = null;
@@ -85,6 +86,11 @@ $(document).ready(function() {
 
     var file = event.target.files[0];
     var fileReader = new FileReader();
+
+    $('#upload').css("display","none");
+    $('#music-container').css("visibility","visible");
+    $('#top-left').css("visibility","visible");
+    $('#pdf-title').html(file.name);
 
     fileReader.onload = function() {
 
@@ -235,10 +241,11 @@ $(document).ready(function() {
                 
                 if(entry.isIntersecting && loaded[canvas.id] != "true"){
                   console.log(canvas.id);
-                loadpage(canvas.id);
+                  loadpage(canvas.id);
+                  $("#page-num").html(String(canvas.id) + "/" + numPages);
                 }
               });
-            }, {threshold: 0.1});
+            }, {threshold: 0.5});
 
             observer.observe(canvas);
             // console.log("mog")
