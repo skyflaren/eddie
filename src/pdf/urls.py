@@ -7,4 +7,5 @@ from .views import *
 urlpatterns = [
     path('', index_view),
     path('music', music_view),
+    path('music', music_view),
 ]
