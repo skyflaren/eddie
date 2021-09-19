@@ -12,20 +12,33 @@ def music_view(request):
     return render(request, 'pdf/music.html', context)
 
 def upload_view(request):
-    if request.method == 'POST':
-        prs = request.data.get()
-        processed = EmotionAnalysis(prs);
-        processed.process_pages([1])
-        # response = {
-        #     'is_taken': User.objects.filter(username__iexact=username).exists()
-        # }
+    # if request.method == 'POST':
+        # response = { "status": "wad" }
+        
+        # try:
+        #     prs = request.data.get()
+        # except:
+        #     response = { "status": "sad" }
+
+        # try:
+        #     processed = EmotionAnalysis(prs);
+        # except:
+        #     response = { "status": "mad" }
+
+        # try:
+        #     processed.process_pages([1])
+        # except:
+        #     response = { "status": "bad" }
+
+        # response = { "status": processed.jsonify(1, 1) }
+        
         # return JsonResponse(response)
-        # return HttpResponse('Pog')
-        print("JKSDFKSDFSDJFSDF HI")
-    response = {
-        'worked': 'true'
-    }
-    return JsonResponse(response)
+
+    if request.method == 'POST':
+        response = {
+            'worked': 'true'
+        }
+        return JsonResponse(response)
 
 # # class FileView(APIView):
 # def process_init(request, format=None):

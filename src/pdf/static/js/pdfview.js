@@ -51,10 +51,19 @@ $(document).ready(function() {
           let userToken = getText();
           userToken.then(function(result) {
              console.log(result) // =============== Retrieve data from here ===============
-
+            var token = $('input[name="csrfmiddlewaretoken"]').attr('value')
+            $.ajaxSetup({
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Csrf-Token', token);
+                }
+            });
             $.ajax({
+              type: "POST",
               data: result,
               url: $("#upload-url").attr("data-url"),
+              headers: {
+                    'X-CSRFToken': token 
+               },
               success: function (response) {
                 // if ("worked" == "true") {
                 //   console.log("pog")
@@ -64,9 +73,11 @@ $(document).ready(function() {
                 // }
                 console.log(response)
                 console.log(String($("#url").attr("data-url")));
+                
               },
               error: function (response) {
-                console.log(response.responseJSON.errors)
+                console.log(response)
+                // console.log(response.responseJSON.errors)
               }
             });
             return false;

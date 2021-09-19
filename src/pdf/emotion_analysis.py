@@ -154,8 +154,8 @@ class EmotionAnalysis():
     def print_emotions(self, a, b):
         print(self.calculated[a:b+1])
 
-    def jsonify():
-        print()
+    def jsonify(self, a, b):
+        return self.calculated[a:b+1]
 
 if __name__ == "__main__":
     # Testing Caching
