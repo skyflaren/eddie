@@ -61,10 +61,8 @@ class EmotionAnalysis():
 
     def process_pages(self, p_nums): #Takes in page numbers to avoid recalculating the same page
         # Takes pages from saved text
-        pages = []
-        for i in p_nums:
-            if i < len(self.all_pages):
-                pages.append(self.all_pages[i])
+        p_nums = [x for x in p_nums if x < len(self.all_pages)] 
+        pages = [self.all_pages[i] for i in p_nums]
         # pprint(pages)
 
         # Initialize variables
@@ -132,8 +130,8 @@ class EmotionAnalysis():
            
 
             # Values will be returned as a string consisting of a combination of characters corresponding to emotion
-            # H Happy, A Angry, P Surprise lmao idk, S Sad, F Fear 
-            emotion_chars = ['H', 'A', 'P', 'S', 'F'] 
+            # 0 Happy, 1 Angry, 2 Surprise, 3 Sad, 4 Fear 
+            emotion_chars = ['0', '1', '2', '3', '4'] 
             top_emotion = emotion_chars[scores.argmax()]
             print(top_emotion)
 
@@ -154,6 +152,18 @@ class EmotionAnalysis():
 
     def jsonify(self, a, b):
         return self.calculated[a:b+1]
+
+    def set_all_pages(self, all_pages):
+        all_pages.insert(0, "")
+        self.all_pages = all_pages
+        self.calculated = ['' for _ in range(len(all_pages)+1)]
+        self.d = {
+            'happy':[0.0 for _ in range(len(all_pages)+1)],
+            'angry':[0.0 for _ in range(len(all_pages)+1)],
+            'surprise':[0.0 for _ in range(len(all_pages)+1)],
+            'sad':[0.0 for _ in range(len(all_pages)+1)],
+            'fear':[0.0 for _ in range(len(all_pages)+1)],
+        }
 
 if __name__ == "__main__":
     # Testing Caching

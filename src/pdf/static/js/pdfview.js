@@ -160,6 +160,9 @@ $(document).ready(function() {
                   key: String(num),
                   value: "true"
               });
+              var ind = parseInt(response.result[0]);
+              console.log(ind);
+              themeIndex = ind;
               console.log(response)
             },
             error: function (response) {

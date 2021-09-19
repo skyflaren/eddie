@@ -7,10 +7,8 @@
   <!-- The offical release-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.js"> </script>
-  <script src="{% static 'js/pdfview.js' %}"> </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="{% static 'css/music.css' %}">
-  <script src="{% static 'js/music.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script>
     var GLOBAL_PATH = '{{ STATIC_PATH }}'; 
@@ -62,5 +60,8 @@
     </div>
     <input style="display:none" id="upload-url" data-url="{% url 'upload_view' %}" />
     <input style="display:none" id="page-url" data-url="{% url 'page_view' %}" />
+
+    <script src="{% static 'js/music.js' %}"></script>
+    <script src="{% static 'js/pdfview.js' %}"> </script>
   </body>
 </html>
