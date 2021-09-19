@@ -21,7 +21,7 @@ body {
   position: fixed;
   background-color: var(--cream);
   border-radius: 15px;
-  box-shadow: 0 20px 20px 0 rgba(177, 57, 50, 0.2);
+  box-shadow: 0 20px 20px 0 rgba(53, 26, 26, 0.2);
   display: flex;
   padding: 20px 30px;
   margin: 50px 0;
@@ -29,6 +29,7 @@ body {
   bottom:0%;
   left:50%;
   transform: translate(-50%, 0);
+  visibility: hidden;
 }
 
 .img-container {
