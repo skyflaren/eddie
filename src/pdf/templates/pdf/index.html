@@ -1,22 +1,28 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
+
   <head>
-    <title>Hello world!</title>
+  <!-- The offical release-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.js"> </script>
+    <script src="{% static 'js/pdfview.js' %}"> </script>
+    <link link rel="stylesheet" href="{% static 'css/style.css' %}"> </script>
   </head>
-  <body style="font-family: Arial, Helvetica, sans-serif;">
 
-    <div style="width:760px;">
-      <h2>hello world</h2>
-      <p>not sure what this is</p>
-
-        <!--
-          Place the following <div> element where you want the PDF to be displayed in your website. You can adjust the size using the width and height attributes.
-        -->
-        <div>
-            <iframe id="pdf-js-viewer" src="/web/viewer.html?file=%2assets%2pdf%2Freview.pdf" title="webviewer" frameborder="0" width="500" height="600"></iframe>
-        </div>
-
+  <body>
+    <div id="wrapper">
+      <div>
+        {% csrf_token %}
+        <label class="custom-file-upload">
+          <input type="file" id="file">
+            Custom Upload
+        </label>
+      </div>
+      <div id="pane"></div>
+      <button id="start">play!</button>
     </div>
-
+    <input type="hidden" id="upload-url" data-url="{% url 'upload_view' %}" />
   </body>
 </html>

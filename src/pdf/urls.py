@@ -5,6 +5,7 @@ import pdf
 from .views import *
 
 urlpatterns = [
-    path('', index_view),
-    path('music', music_view),
+    path('', index_view, name="index_view"),
+    path('music', music_view, name="music_view"),
+    path('process', upload_view, name="upload_view"),
 ]
