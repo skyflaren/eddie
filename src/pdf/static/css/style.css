@@ -30,6 +30,13 @@ body{
 	background-color: var(--mahogany);
 }
 
+#upload{
+	border: none;
+	color: var(--cream);
+	/* background-color: var(--cream); */
+	margin: auto;
+}
+
 input[type="file"] {
     display: none;
 }

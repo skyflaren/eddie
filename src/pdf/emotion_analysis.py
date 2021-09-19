@@ -61,7 +61,10 @@ class EmotionAnalysis():
 
     def process_pages(self, p_nums): #Takes in page numbers to avoid recalculating the same page
         # Takes pages from saved text
-        pages = [self.all_pages[i] for i in p_nums]
+        pages = []
+        for i in p_nums:
+            if i < len(self.all_pages):
+                pages.append(self.all_pages[i])
         # pprint(pages)
 
         # Initialize variables

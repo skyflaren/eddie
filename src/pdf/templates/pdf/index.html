@@ -21,9 +21,9 @@
     <div id="wrapper">
       <div>
         {% csrf_token %}
-        <label class="custom-file-upload">
-          <input type="file" id="file">
-            Custom Upload
+        <label class="custom-file-upload" id="upload">
+          <input type="file" id="file" style="display:none">
+          <i class="fas fa-file-upload fa-3x"></i>
         </label>
       </div>
       <div id="pane"></div>
