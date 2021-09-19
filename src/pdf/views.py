@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
+from .emotion_analysis import EmotionAnalysis
+import ast
 
 # Create your views here.
 def index_view(request):
@@ -12,33 +14,25 @@ def music_view(request):
     return render(request, 'pdf/music.html', context)
 
 def upload_view(request):
-    # if request.method == 'POST':
+    if request.method == 'POST':
         # response = { "status": "wad" }
         
-        # try:
-        #     prs = request.data.get()
-        # except:
-        #     response = { "status": "sad" }
+        print("WHY")
+        print("----", request.POST)
+        res = request.POST.get('text')
+        res = ast.literal_eval(res)
+        processed = EmotionAnalysis(res)
+        processed.process_pages([1, 2, 3, 4, 5, 6, 7, 8])
+        processed = processed.jsonify(1, 8)
+        response = {"result": processed} 
 
-        # try:
-        #     processed = EmotionAnalysis(prs);
-        # except:
-        #     response = { "status": "mad" }
-
-        # try:
-        #     processed.process_pages([1])
-        # except:
-        #     response = { "status": "bad" }
-
-        # response = { "status": processed.jsonify(1, 1) }
-        
-        # return JsonResponse(response)
-
-    if request.method == 'POST':
-        response = {
-            'worked': 'true'
-        }
         return JsonResponse(response)
+
+    # if request.method == 'POST':
+    #     response = {
+    #         'worked': 'true'
+    #     }
+        # return JsonResponse(response)
 
 # # class FileView(APIView):
 # def process_init(request, format=None):

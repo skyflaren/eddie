@@ -43,14 +43,13 @@ $(document).ready(function() {
             }
             // Wait for all pages and join text
             return Promise.all(countPromises).then(function (texts) {
-              ret = {"text": texts}
-              return (ret);
+              return JSON.stringify(texts);
             });
           }
 
           let userToken = getText();
           userToken.then(function(result) {
-             console.log(result) // =============== Retrieve data from here ===============
+            console.log(result) // =============== Retrieve data from here ===============
             var token = $('input[name="csrfmiddlewaretoken"]').attr('value')
             $.ajaxSetup({
                 beforeSend: function(xhr) {
@@ -59,7 +58,7 @@ $(document).ready(function() {
             });
             $.ajax({
               type: "POST",
-              data: result,
+              data: {"text": result},
               url: $("#upload-url").attr("data-url"),
               headers: {
                     'X-CSRFToken': token 
