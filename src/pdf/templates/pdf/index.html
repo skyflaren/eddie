@@ -14,6 +14,7 @@
   <body>
     <div id="wrapper">
       <div>
+        {% csrf_token %}
         <label class="custom-file-upload">
           <input type="file" id="file">
             Custom Upload
@@ -22,6 +23,6 @@
       <div id="pane"></div>
       <button id="start">play!</button>
     </div>
+    <input type="hidden" id="upload-url" data-url="{% url 'upload_view' %}" />
   </body>
-
 </html>

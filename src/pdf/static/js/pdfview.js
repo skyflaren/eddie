@@ -1,6 +1,6 @@
 // $(document).ready(function() {
-// 	var audioElement = document.createElement("audio");
-// 	audioElement.src = "https://raw.githubusercontent.com/Metastruct/garrysmod-chatsounds/master/sound/chatsounds/autoadd/snoop_dogg/hold%20up%20wait.ogg";
+//  var audioElement = document.createElement("audio");
+//  audioElement.src = "https://raw.githubusercontent.com/Metastruct/garrysmod-chatsounds/master/sound/chatsounds/autoadd/snoop_dogg/hold%20up%20wait.ogg";
 //     $('#start').click(function(){
 //         audioElement.play();
 //     });
@@ -43,13 +43,33 @@ $(document).ready(function() {
             }
             // Wait for all pages and join text
             return Promise.all(countPromises).then(function (texts) {
-              return (texts);
+              ret = {"text": texts}
+              return (ret);
             });
           }
 
           let userToken = getText();
           userToken.then(function(result) {
              console.log(result) // =============== Retrieve data from here ===============
+
+            $.ajax({
+              data: result,
+              url: $("#upload-url").attr("data-url"),
+              success: function (response) {
+                // if ("worked" == "true") {
+                //   console.log("pog")
+                // }
+                // else {
+                //   console.log("bog")
+                // }
+                console.log(response)
+                console.log(String($("#url").attr("data-url")));
+              },
+              error: function (response) {
+                console.log(response.responseJSON.errors)
+              }
+            });
+            return false;
           })
 
         pdf.getPage(1).then(morepages);

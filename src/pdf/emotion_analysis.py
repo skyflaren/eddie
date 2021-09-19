@@ -5,6 +5,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import re
 
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 PAGE_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
 #Helper Functions
@@ -148,6 +153,9 @@ class EmotionAnalysis():
 
     def print_emotions(self, a, b):
         print(self.calculated[a:b+1])
+
+    def jsonify():
+        print()
 
 if __name__ == "__main__":
     # Testing Caching
