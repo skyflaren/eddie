@@ -17,15 +17,6 @@ $(document).ready(() => {
     var userVolume = 1.0;
 
     // Song titles
-    const songs = ['mysong', 'heart', 'mongoose'];
-
-    // Keep track of song
-    let songIndex = 0;
-    let themeIndex = 0; // 0 happy, 1 angry, 2 surprised, 3 sad, 4 fear
-
-    const themes = ['happy', 'angry', 'surprised', 'sad', 'fear'];
-    const songCount = [1, 1, 1, 1, 1];
-    const imgCount = 3;
     const songs = [
         ['night'], // Happy
         ['mongoose'], // Angry
@@ -34,7 +25,17 @@ $(document).ready(() => {
         ['mysong'] // Fear
     ];
 
+    // Keep track of song
+    let songIndex = 0;
+    let themeIndex = 0; // 0 happy, 1 angry, 2 surprised, 3 sad, 4 fear
+
+    const themes = ['happy', 'angry', 'surprised', 'sad', 'fear'];
+    const songCount = [1, 1, 1, 1, 1];
+    const imgCount = 3;
+    
+
     // Initially load song details into DOM
+    loadSong()
 
     // Update song details
     function loadSong() {
@@ -42,7 +43,7 @@ $(document).ready(() => {
         var imgIndex = parseInt(Math.round(Math.random()*(imgCount-1)));
         var songIndex = parseInt(Math.round(Math.random()*(songCount[themeIndex]-1)));
 
-        audio.src =  GLOBAL_PATH + "static/media/" + themes + "/" + songIndex + ".mp3";
+        audio.src =  GLOBAL_PATH + "static/media/" + themes[songIndex] + "/" + songs[themeIndex][songIndex] + ".mp3";
         console.log(audio.src);
         cover.src = GLOBAL_PATH + "static/img/" + imgIndex + ".jpg";
         console.log(cover.src);
@@ -100,7 +101,6 @@ $(document).ready(() => {
     // Event listeners
     playBtn.addEventListener('click', () => {
         const isPlaying = musicContainer.classList.contains('play');
-
         if (isPlaying) {
             pauseSong();
         } else {
