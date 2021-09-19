@@ -1,4 +1,4 @@
-# eddie
+# bonfire
 
 Soundtrack your book reading adventure with the perfect music, powered by ML
 
